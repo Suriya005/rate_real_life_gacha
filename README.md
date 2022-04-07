@@ -1,0 +1,1 @@
+# rate_real_life_gacha
