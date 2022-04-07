@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            font-size: 1.8rem;
+        }
+        input{
+            width:3rem;
+            margin-right: 1.5rem;
+        }
+        .container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .row {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+        .red-box{
+            width: 40vw;
+            height: 40vh;
+            background-color: red;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .blue-box{
+            width: 40vw;
+            height: 40vh;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .red-box-text{
+            color: white;
+            font-size: 2.5rem;
+        }
+        .blue-box-text{
+            color: white;
+            font-size: 2.5rem;
+        }
+        .percen-box{
+            width: 100%;
+            height: 100%;
+            background: none;
+            border: none;
+            outline: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <div>
+                <div>
+                    <span>ยอดใบแดง</span>
+                    <input type="text" id="redTotal" >
+                    <span>ยอดใบดำ</span>
+                    <input type="text" id="blueTotal" >
+                    <button onclick="onchangeTotal()">เริ่ม</button>
+                    <span id="totalScore">ยอดคนลงทะเบียน 0</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="red-box">
+                    <button class="red-box-text percen-box" id="redText" onclick="decreaseRed()"></button>
+                </div>
+                <div class="blue-box">
+                    <button class="blue-box-text percen-box" id="blueText" onclick="decreaseBlue()"></button>
+                </div>
+            </div>
+           <span id="blackAmout">ใบดำ 0</span>
+           <span id="redAmout">ใบแดง 0</span>
+        </div>
+    </div>
+    <script>
+        let blueBox = document.getElementsByClassName('blue-box-text')[0];
+        let redBox = document.getElementsByClassName('red-box-text')[0];
+        let redAmout = document.getElementById('redAmout');
+        let blueAmout = document.getElementById('blackAmout');
+        let blue = 0;
+        let red = 0;
+        
+
+        const onchangeTotal = () => {
+            let totalScore = document.getElementById('totalScore');
+            let bluetotal = parseInt(document.getElementById('blueTotal').value);
+            let redtotal = parseInt(document.getElementById('redTotal').value);
+            let totalRegister = bluetotal + redtotal;
+            let redPrecent = (redtotal / totalRegister) * 100;
+            let bluePrecent = (bluetotal / totalRegister) * 100;
+            blue = bluetotal
+            red = redtotal
+            blueAmout.innerText = `ใบดำ ${bluetotal}`;
+            redAmout.innerText = `ใบแดง ${redtotal}`;
+            blueBox.innerText = bluePrecent.toFixed(2) + " %";
+            redBox.innerText = redPrecent.toFixed(2) + " %";
+            totalScore.innerText ="ยอดคนลงทะเบียน " + totalRegister ;
+            console.log(redPrecent);
+        }
+
+        const decreaseBlue = () => {
+            blue--;
+            blueAmout.innerText = `ใบดำ ${blue}`;
+            blueBox.innerText = ((blue / (blue + red)) * 100).toFixed(2) + " %";
+            redBox.innerText = ((red / (blue + red)) * 100).toFixed(2) + " %";
+        }
+        const decreaseRed = () => {
+            red--;
+            redAmout.innerText = `ใบแดง ${red}`;
+            blueBox.innerText = ((blue / (blue + red)) * 100).toFixed(2) + " %";
+            redBox.innerText = ((red / (blue + red)) * 100).toFixed(2) + " %";
+        }
+    </script>
+</body>
+</html>
